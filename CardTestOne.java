@@ -5,9 +5,10 @@ public class CardTestOne
 {
 	public static void main( String args[] )
 	{
+		/*
 		Card one = new BlackJackCard();
 		out.println(one);
-
+		*/
 		Card two = new BlackJackCard(1,"DIAMONDS");
 		out.println(two);
 
@@ -23,8 +24,10 @@ public class CardTestOne
 		Card six = new BlackJackCard(9,"SPADES");
 		out.println(six);				
 
+		/*
 		out.println(one.equals(two));
-		out.println(one.equals(one));		
+		out.println(one.equals(one));
+		*/		
 		out.println(four.equals(five));	
 		out.println(three.equals(four));
 	}
