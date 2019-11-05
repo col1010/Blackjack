@@ -1,5 +1,4 @@
 import static java.lang.System.*;
-import java.awt.Color;
 
 public class DealerTestOne
 {
@@ -28,18 +27,18 @@ public class DealerTestOne
 		out.println("Hand Size :: " + dealer.getHandSize() );
 		out.println("Cards in Hand :: " + dealer.toString() );
 		
-		if(playerTotal>21&&dealerTotal<=21)
+		if(playerTotal>21 && dealerTotal<=21)
 		{
 		   out.println("\nDealer wins - Player busted!");
 		}
-		else if(playerTotal<=21&&dealerTotal>21)
+		else if(playerTotal<=21 && dealerTotal>21)
 		{
 		   out.println("\nPlayer wins - Dealer busted!");
 		}
-		else if(playerTotal>21&&dealerTotal>21){
+		else if(playerTotal>21 && dealerTotal>21){
 		   out.println("Both players bust!");
 		}
-		else if(playerTotal<dealerTotal){
+		else if(playerTotal < dealerTotal){
 		   out.println("\nDealer has bigger hand value!");
 		}
 		else{

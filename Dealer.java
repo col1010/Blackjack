@@ -1,27 +1,29 @@
 public class Dealer extends Player
 {
 	//define a deck of cards
+	Deck dealerDeck;
 
 	public Dealer() {
+		dealerDeck = new Deck();
 	}
 
 	public void  shuffle()
 	{
-	   //shuffle the deck
+	   dealerDeck.shuffle();
 	}
 
 	public Card  deal(){
-	   return null;
+	   return dealerDeck.nextCard();
 	}
 	
 	public int numCardsLeftInDeck()
 	{
-		return 0;
+		return dealerDeck.numCardsLeft();
 	}
 
-	public boolean hit()
+	public void hit()
 	{
-	   return false;
+	   addCardToHand(dealerDeck.nextCard());
     }
 }
 

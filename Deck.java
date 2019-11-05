@@ -36,6 +36,7 @@ public class Deck
 	   topCardIndex = 51;
 		//shuffle the deck
 		//reset variables as needed
+	   Collections.shuffle(stackOfCards);
 	}
 
    //accessors
