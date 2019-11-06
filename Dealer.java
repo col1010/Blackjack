@@ -21,10 +21,6 @@ public class Dealer extends Player
 		return dealerDeck.numCardsLeft();
 	}
 
-	public void hit()
-	{
-	   addCardToHand(dealerDeck.nextCard());
-    }
 }
 
 

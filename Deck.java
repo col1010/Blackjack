@@ -51,9 +51,12 @@ public class Deck
 	}
 
 	public Card nextCard()
-	{	
+	{
+		Card temp = stackOfCards.get(topCardIndex);
+		stackOfCards.remove(topCardIndex);
 		topCardIndex -= 1;
-		return stackOfCards.get(topCardIndex+1);
+
+		return temp;
 	}
 
 	public String toString()

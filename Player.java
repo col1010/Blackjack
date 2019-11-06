@@ -51,11 +51,11 @@ public class Player
 
    public String toString()
    {
-	  String handString = "Current hand: ";
+	  String handString = "Current hand: \n";
 	  for (int i = 0; i < hand.size(); i++) {
-		  handString += "[" + hand.get(i) + "] ";
+		  handString += "[" + hand.get(i) + "] \n";
 	  }
-	  handString += " {TOTAL VALUE = " + getHandValue() + "}";
+	  handString += "{TOTAL VALUE = " + getHandValue() + "}";
       return handString;
    }
 }
