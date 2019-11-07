@@ -12,9 +12,11 @@ public class BlackJack {
 	private boolean hit;
 	private Scanner input;
 	private Card hitCard;
+	private boolean bust;
 
 	public BlackJack() {
 		// instantiate all of your instance variables
+		input = new Scanner(System.in);
 		dealer = new Dealer();
 		playerList = new ArrayList<>();
 		System.out.println("How many players are there?");
@@ -27,7 +29,8 @@ public class BlackJack {
 		keepPlaying = true;
 		hit = true;
 		hitCard = new Card();
-		input = new Scanner(System.in);
+		bust = false;
+		
 	}
 
 	public void playGame() {
@@ -38,10 +41,8 @@ public class BlackJack {
 			dealer.addCardToHand(dealer.deal());
 			dealToPlayers();
 			dealer.addCardToHand(dealer.deal());
+			bust = false;
 
-			while (dealer.getHandValue() < 17) {
-				dealer.hit(dealer.deal());
-			}
 			for (int i = 0; i < playerList.size(); i++) { // for each player playing
 				hit = true; // resets the value after each player is finished hitting
 				while (hit == true && playerList.get(i).getHandValue() < 21) { // while the player still wants to hit and hasn't busted
@@ -62,6 +63,11 @@ public class BlackJack {
 					}
 				} // end of while loop
 				System.out.println(showHandStatus(playerList.get(i))); // print if the player busted or got a blackjack, nothing otherwise
+				if (!bust) {
+					while (dealer.getHandValue() < 17) {
+						dealer.hit(dealer.deal());
+					}
+				}
 			} // end of for loop
 			
 
@@ -141,14 +147,13 @@ public class BlackJack {
 	// tell the player if they busted or got a blackjack before moving onto the next player
 	public String showHandStatus(Player player) {
 		if (player.getHandValue() > 21) {
+			bust = true;
 			return "Player busted!";
 		}
 		else if (player.getHandValue() == 21) {
 			return "Blackjack!";
 		}
-		
 		return "";
-		
 	}
 
 	public static void main(String args[]) {
