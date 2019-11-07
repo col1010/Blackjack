@@ -51,7 +51,7 @@ public class Player
 
    public String toString()
    {
-	  String handString = "Current hand: \n";
+	  String handString = "current hand: \n";
 	  for (int i = 0; i < hand.size(); i++) {
 		  handString += "[" + hand.get(i) + "] \n";
 	  }
