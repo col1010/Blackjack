@@ -1,5 +1,4 @@
 import static java.lang.System.out;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +12,7 @@ public class BlackJack {
 	private Scanner input;
 	private Card hitCard;
 	private boolean bust;
+	private Card dealerFirstCard;
 
 	public BlackJack() {
 		// instantiate all of your instance variables
@@ -30,7 +30,7 @@ public class BlackJack {
 		hit = true;
 		hitCard = new Card();
 		bust = false;
-		
+		dealerFirstCard = new Card();
 	}
 
 	public void playGame() {
@@ -38,7 +38,8 @@ public class BlackJack {
 		while (keepPlaying == true) {
 			dealer.shuffle(); // shuffle the deck
 			dealToPlayers();
-			dealer.addCardToHand(dealer.deal());
+			dealerFirstCard = dealer.deal();
+			dealer.addCardToHand(dealerFirstCard);
 			dealToPlayers();
 			dealer.addCardToHand(dealer.deal());
 			bust = false;
@@ -47,6 +48,7 @@ public class BlackJack {
 				hit = true; // resets the value after each player is finished hitting
 				while (hit == true && playerList.get(i).getHandValue() < 21) { // while the player still wants to hit and hasn't busted
 					out.println("\n" + "Player " + (i+1) + "'s " + playerList.get(i).toString());
+					out.println("\nDealer's first card: [" + dealerFirstCard + "]");
 					out.println("\nWould you like to hit? [y/n]");
 					if (input.next().equalsIgnoreCase("y")) {
 	
@@ -144,7 +146,7 @@ public class BlackJack {
 		}
 	}
 	
-	// tell the player if they busted or got a blackjack before moving onto the next player
+	// tell the player if they busted or got a blackjack before moving on to the next player
 	public String showHandStatus(Player player) {
 		if (player.getHandValue() > 21) {
 			bust = true;
