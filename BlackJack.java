@@ -46,9 +46,9 @@ public class BlackJack {
 
 			for (int i = 0; i < playerList.size(); i++) { // for each player playing
 				hit = true; // resets the value after each player is finished hitting
-				while (hit == true && playerList.get(i).getHandValue() < 21) { // while the player still wants to hit and hasn't busted
+				while (hit == true && playerList.get(i).getHandValue() != 21/* && playerList.get(i).getHandValue() < 21*/) { // while the player still wants to hit and hasn't busted
 					out.println("\n" + "Player " + (i+1) + "'s " + playerList.get(i).toString());
-					out.println("\nDealer's first card: [" + dealerFirstCard + "]");
+					out.println("\nDealer's first card: [" + dealerFirstCard + "]"); // show the dealer's first card
 					out.println("\nWould you like to hit? [y/n]");
 					if (input.next().equalsIgnoreCase("y")) {
 	
@@ -56,10 +56,14 @@ public class BlackJack {
 	
 						if (hitCard.getSuit().equals("ACE") && playerList.get(i).getHandValue() > 10) { // if the card dealt is an Ace and the player's hand's sum is greater than 10
 							playerList.get(i).hit(new Card(1, hitCard.getSuit())); // manually enter the card's value as 1
-	
-						} else {
-							playerList.get(i).hit(hitCard);
 						}
+						else if (checkForAce(playerList.get(i)) && playerList.get(i).getHandValue() > 21) {
+							System.out.println("\n\n\nPrevious ACE card replaced with a value of 1\n\n\n");
+						}
+						else {
+						playerList.get(i).hit(hitCard);
+						}
+						
 					} else {
 						hit = false; // set hit to false to exit while loop
 					}
@@ -157,9 +161,20 @@ public class BlackJack {
 		}
 		return "";
 	}
+	
+	public boolean checkForAce(Player player) {
+		for (int i = 0; i < player.getHandSize(); i++) {
+			if (player.getCardValue(i) == 11) {
+				player.setCardValue(i, 1);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static void main(String args[]) {
 		BlackJack game = new BlackJack();
 		game.playGame();
 	}
+	
 }

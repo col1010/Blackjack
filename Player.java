@@ -48,6 +48,14 @@ public class Player
    {
 	   hand.add(temp);
    }
+   
+   public int getCardValue(int i) {
+	   return hand.get(i).getValue();
+   }
+   
+   public void setCardValue(int position, int value) {
+	   hand.set(position, new Card(value, hand.get(position).getSuit()));
+   }
 
    public String toString()
    {
