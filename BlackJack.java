@@ -50,10 +50,10 @@ public class BlackJack {
 					out.println("\n" + "Player " + (i+1) + "'s " + playerList.get(i).toString());
 					out.println("\nDealer's first card: [" + dealerFirstCard + "]"); // show the dealer's first card
 					
-					if (checkForAce(playerList.get(i))) {
+					if (checkForAce(playerList.get(i))) { // if there's an ace in the player's hand
 						System.out.println("\nWould you like your ACE of value 11 to be replaced with an ACE of value 1? (y/n)");
 						if (input.next().equalsIgnoreCase("y")) {
-							replaceAce(playerList.get(i));
+							replaceAce(playerList.get(i)); // replace the ace in their hand with an ace with a value of 1
 							System.out.println("\nPrevious ACE card replaced with a value of 1\n");
 							System.out.println("New hand value: " + playerList.get(i).getHandValue());
 						}
@@ -175,6 +175,7 @@ public class BlackJack {
 		return "";
 	}
 	
+	// checks the player's hand for an ace
 	public boolean checkForAce(Player player) {
 		for (int i = 0; i < player.getHandSize(); i++) {
 			if (player.getCardValue(i) == 11) {
@@ -184,6 +185,7 @@ public class BlackJack {
 		return false;
 	}
 	
+	// replaces the ace in the player's hand with one of value 1
 	public void replaceAce(Player player) {
 		for (int i = 0; i < player.getHandSize(); i++) {
 			if (player.getCardValue(i) == 11) {

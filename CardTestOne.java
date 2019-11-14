@@ -1,5 +1,4 @@
 import static java.lang.System.*;
-import java.awt.Color;
 
 public class CardTestOne
 {
