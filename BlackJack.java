@@ -42,24 +42,37 @@ public class BlackJack {
 			dealer.addCardToHand(dealerFirstCard);
 			dealToPlayers();
 			dealer.addCardToHand(dealer.deal());
-			bust = false;
 
 			for (int i = 0; i < playerList.size(); i++) { // for each player playing
+				bust = false; // resets bust to false
 				hit = true; // resets the value after each player is finished hitting
-				while (hit == true && playerList.get(i).getHandValue() != 21/* && playerList.get(i).getHandValue() < 21*/) { // while the player still wants to hit and hasn't busted
+				while (hit == true && playerList.get(i).getHandValue() < 21) { // while the player still wants to hit and hasn't busted
 					out.println("\n" + "Player " + (i+1) + "'s " + playerList.get(i).toString());
 					out.println("\nDealer's first card: [" + dealerFirstCard + "]"); // show the dealer's first card
+					
+					if (checkForAce(playerList.get(i))) {
+						System.out.println("\nWould you like your ACE of value 11 to be replaced with an ACE of value 1? (y/n)");
+						if (input.next().equalsIgnoreCase("y")) {
+							replaceAce(playerList.get(i));
+							System.out.println("\nPrevious ACE card replaced with a value of 1\n");
+							System.out.println("New hand value: " + playerList.get(i).getHandValue());
+						}
+					}
+					
 					out.println("\nWould you like to hit? [y/n]");
 					if (input.next().equalsIgnoreCase("y")) {
 	
 						hitCard = dealer.deal();
 	
-						if (hitCard.getSuit().equals("ACE") && playerList.get(i).getHandValue() > 10) { // if the card dealt is an Ace and the player's hand's sum is greater than 10
+						if (hitCard.getValue() == 11 && playerList.get(i).getHandValue() > 10) { // if the card dealt is an Ace and the player's hand's sum is greater than 10
 							playerList.get(i).hit(new Card(1, hitCard.getSuit())); // manually enter the card's value as 1
+						} 
+						else if (playerList.get(i).getHandValue() + hitCard.getValue() > 21 && checkForAce(playerList.get(i))) {
+							replaceAce(playerList.get(i));
+							System.out.println("Your ACE card's value was automatically changed to a 1 to prevent a bust");
+							playerList.get(i).hit(hitCard);
 						}
-						else if (checkForAce(playerList.get(i)) && playerList.get(i).getHandValue() > 21) {
-							System.out.println("\n\n\nPrevious ACE card replaced with a value of 1\n\n\n");
-						}
+
 						else {
 						playerList.get(i).hit(hitCard);
 						}
@@ -69,7 +82,7 @@ public class BlackJack {
 					}
 				} // end of while loop
 				System.out.println(showHandStatus(playerList.get(i))); // print if the player busted or got a blackjack, nothing otherwise
-				if (!bust) {
+				if (!bust && playerList.get(i).getHandValue() > dealer.getHandValue()) { // if the player hasn't busted and their hand value is greater than the dealer's
 					while (dealer.getHandValue() < 17) {
 						dealer.hit(dealer.deal());
 					}
@@ -156,7 +169,7 @@ public class BlackJack {
 			bust = true;
 			return "Player busted!";
 		}
-		else if (player.getHandValue() == 21) {
+		if (player.getHandValue() == 21) {
 			return "Blackjack!";
 		}
 		return "";
@@ -165,11 +178,18 @@ public class BlackJack {
 	public boolean checkForAce(Player player) {
 		for (int i = 0; i < player.getHandSize(); i++) {
 			if (player.getCardValue(i) == 11) {
-				player.setCardValue(i, 1);
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public void replaceAce(Player player) {
+		for (int i = 0; i < player.getHandSize(); i++) {
+			if (player.getCardValue(i) == 11) {
+				player.setCardValue(i, 1);
+			}
+		}
 	}
 
 	public static void main(String args[]) {
