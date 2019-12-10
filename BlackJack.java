@@ -135,6 +135,7 @@ public class BlackJack {
 				System.out.println();
 				System.out.println("Dealer has won " + dealerWins + " times");
 				System.out.println("Player " + (i+1) + " has won " + playerWins[i] + " times");
+				System.out.println("\n————————————————————————————————————");
 			} // end of for loop
 			
 			System.out.println("\nWould you like to play again? [y/n]");
@@ -167,10 +168,10 @@ public class BlackJack {
 	public String showHandStatus(Player player) {
 		if (player.getHandValue() > 21) {
 			bust = true;
-			return "Player busted!";
+			return "\n{——— Player busted! ———}";
 		}
 		if (player.getHandValue() == 21) {
-			return "Blackjack!";
+			return "\n{——— Blackjack! ———}";
 		}
 		return "";
 	}
